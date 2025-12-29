@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Данил Натопта — Портфолио</title>
+  <meta name="description" content="Портфолио начинающего веб-разработчика Данила Натопты">
+  <meta name="keywords" content="портфолио, веб-разработка, HTML, CSS, JavaScript, Данил Натопта">
+  <meta name="author" content="Данил Натопта">
+  <meta name="robots" content="index, follow">
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3103/3103481.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #0a0a0a, #111);
+      border-bottom: 1px solid #333;
+    }
+
+    .avatar {
+      font-size: 5rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    h1 i {
+      color: #66ccff;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: #aaa;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: #999;
+    }
+
+    nav {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-size: 1.1rem;
+    }
+
+    nav a {
+      color: #999;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #66ccff;
+    }
+
+    main {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #e0e0e0;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: #444;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .skill {
+      background: #222;
+      color: #ddd;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      border: 1px solid #444;
+    }
+
+    .project {
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid #333;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .project.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #ddd;
+    }
+
+    .project p {
+      color: #aaa;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .project a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #333;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: background 0.3s;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #555;
+    }
+
+    .project a:hover {
+      background: #555;
+    }
+
+    .contact {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #aaa;
+    }
+
+    .contact a {
+      color: #66ccff;
+      text-decoration: none;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 30px auto;
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid #333;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #444;
+      background: #222;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      background: #66ccff;
+      color: black;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #33aaff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+      background: #0a0a0a;
+    }
+
+    .counter {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      .avatar {
+        font-size: 4rem;
+      }
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .project {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="home">
+    <div class="avatar">
+      <i class="fas fa-user-circle"></i>
+    </div>
+    <h1><i class="fas fa-code"></i> Данил Натопта</h1>
+    <p class="subtitle">Начинающий Web Developer</p>
+    <p class="tagline">18 лет • Шахты, Россия</p>
+    <nav>
+      <a href="#about">Обо мне</a>
+      <a href="#skills">Навыки</a>
+      <a href="#projects">Проекты</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about" class="fade-in">
+      <h2>Обо мне</h2>
+      <p>Привет! Меня зовут Данил, мне 18 лет. Я изучаю веб-разработку и уже могу создавать красивые, адаптивные сайты с использованием HTML, CSS и JavaScript. Уже реализовал свой первый проект — сайт с мотивационными цитатами.</p>
+    </section>
+
+    <section id="skills" class="fade-in">
+      <h2>Навыки</h2>
+      <div class="skills">
+        <div class="skill">HTML</div>
+        <div class="skill">CSS</div>
+        <div class="skill">JavaScript</div>
+      </div>
+    </section>
+
+    <section id="projects" class="fade-in">
+      <h2>Проекты</h2>
+      <div class="project">
+        <h3>Мотивация каждый день</h3>
+        <p>Сайт с цитатами великих людей, который показывает новую цитату каждые 10 секунд. Реализовано: анимации, смена темы, копирование цитат, частицы в фоне и заставка при запуске.</p>
+        <a href="https://killanline.github.io/motivation/" target="_blank">Открыть сайт</a>
+        <a href="https://github.com/killanline/motivation" target="_blank">GitHub</a>
+        <span>⭐ 12 звёзд</span>
+      </div>
+    </section>
+
+    <section id="contact" class="fade-in">
+      <h2>Контакты</h2>
+      <p class="contact">Свяжитесь со мной: <a href="https://t.me/killmeagaln" target="_blank">@killmeagaln</a></p>
+      <form action="https://formspree.io/f/xrgnjvqy" method="POST">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Сообщение" required></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 Данил Натопта. Все права защищены.</p>
+    <div class="counter">
+      <img src="https://profile-counter.glitch.me/killanline/count.svg" alt="Счётчик просмотров">
+    </div>
+  </footer>
+
+  <!-- Анимация появления -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section, .project').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+  <!-- PWA: регистрация сервис-воркера -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed', err));
+      });
+    }
+  </script>
+</body>
+</html>
