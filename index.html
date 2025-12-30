@@ -2,16 +2,13 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Данил Натопта | Cyber Portfolio</title>
-  <meta name="description" content="Портфолио веб-разработчика в стиле киберпанк">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Данил Натопта | Blood & Code</title>
+  <meta name="description" content="Портфолио в стиле тёмный киберпанк с кровавыми акцентами">
   <meta name="robots" content="index, follow">
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💻</text></svg>">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='60' fill='red'>D</text></svg>">
 
   <style>
     * {
@@ -21,212 +18,149 @@
     }
 
     :root {
-      --neon-blue: #0ff0ff;
-      --neon-purple: #d400ff;
-      --neon-pink: #ff00ff;
-      --dark: #0a0a0a;
+      --blood: #8a0303;
+      --blood-dark: #300000;
+      --blood-soft: #d0000080;
+      --text: #e0e0e0;
       --bg: #000;
+      --glow: 0 0 15px rgba(200, 0, 0, 0.4);
     }
 
     body {
-      font-family: 'Orbitron', 'Segoe UI', sans-serif;
+      font-family: 'Courier New', monospace;
       background: var(--bg);
-      color: #fff;
+      color: var(--text);
       min-height: 100vh;
       line-height: 1.7;
-      overflow: hidden;
-      cursor: none;
       position: relative;
+      overflow-x: hidden;
     }
 
-    @font-face {
-      font-family: 'Orbitron';
-      src: url(https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap) format('woff2');
-    }
-
-    /* Фон частиц */
-    .cyber-bg {
+    /* Фон — кровь */
+    .blood-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      background: 
+        linear-gradient(135deg, var(--blood-dark) 0%, var(--bg) 70%),
+        url('https://www.transparenttextures.com/patterns/dark-wood.png'),
+        radial-gradient(circle at 20% 30%, var(--blood) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, var(--blood) 10%, transparent 30%);
+      opacity: 0.15;
+      z-index: -3;
+      pointer-events: none;
+    }
+
+    /* Трещины и брызги */
+    .blood-splatter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
       z-index: -2;
-      background: radial-gradient(circle at center, #111 0%, #000 70%);
+      background: 
+        radial-gradient(50px 20px at 10% 0%, rgba(138, 3, 3, 0.2) 0%, transparent 70%),
+        radial-gradient(40px 15px at 90% 20%, rgba(138, 3, 3, 0.2) 0%, transparent 70%),
+        radial-gradient(60px 25px at 20% 90%, rgba(138, 3, 3, 0.2) 0%, transparent 70%),
+        linear-gradient(45deg, transparent 90%, rgba(138, 3, 3, 0.1) 95%, transparent 100%);
     }
 
-    .particle {
-      position: absolute;
-      background: var(--neon-blue);
-      border-radius: 50%;
-      opacity: 0.4;
-      filter: blur(1px);
-      box-shadow: 0 0 10px var(--neon-blue);
-      animation: float linear infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.8; }
-      100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
-    }
-
-    /* Курсор */
-    .cursor {
+    /* Капли крови */
+    .blood-drop {
       position: fixed;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--neon-blue);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      mix-blend-mode: difference;
-      transition: transform 0.1s;
-      animation: pulse 2s infinite;
-    }
-
-    .cursor-dot {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: var(--neon-purple);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 10000;
-    }
-
-    @keyframes pulse {
-      0% { border-color: var(--neon-blue); }
-      50% { border-color: var(--neon-purple); }
-      100% { border-color: var(--neon-blue); }
-    }
-
-    /* Неоновая подсветка */
-    .neon-glow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: radial-gradient(
-        circle at var(--x) var(--y),
-        transparent 0%,
-        rgba(212, 0, 255, 0.05) 20%,
-        rgba(0, 240, 255, 0.08) 40%,
-        transparent 70%
-      );
+      top: -20px;
+      width: 10px;
+      height: 10px;
+      background: var(--blood);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(45deg);
+      opacity: 0.8;
       z-index: -1;
+      pointer-events: none;
+      box-shadow: 0 0 10px rgba(138, 3, 3, 0.6);
+      animation: fall linear forwards;
     }
 
-    /* Глитч-эффект */
-    .glitch {
-      position: relative;
-      display: inline-block;
-    }
-
-    .glitch::before, .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: var(--bg);
-      clip: rect(0, 0, 0, 0);
-    }
-
-    .glitch::before {
-      left: 2px;
-      text-shadow: -1px 0 var(--neon-blue);
-      animation: glitch-anim 5s infinite linear;
-    }
-
-    .glitch::after {
-      left: -2px;
-      text-shadow: 1px 0 var(--neon-purple);
-      animation: glitch-anim-2 7s infinite linear;
-    }
-
-    @keyframes glitch-anim {
-      0%, 100% { clip: rect(40px, 9999px, 42px, 0); }
-      20% { clip: rect(12px, 9999px, 80px, 0); }
-      40% { clip: rect(60px, 9999px, 22px, 0); }
-      60% { clip: rect(30px, 9999px, 78px, 0); }
-      80% { clip: rect(50px, 9999px, 18px, 0); }
-    }
-
-    @keyframes glitch-anim-2 {
-      0%, 100% { clip: rect(60px, 9999px, 62px, 0); }
-      20% { clip: rect(80px, 9999px, 12px, 0); }
-      40% { clip: rect(22px, 9999px, 60px, 0); }
-      60% { clip: rect(78px, 9999px, 30px, 0); }
-      80% { clip: rect(18px, 9999px, 50px, 0); }
+    @keyframes fall {
+      to {
+        transform: translateY(120vh) rotate(45deg) translateX(100px);
+      }
     }
 
     header {
-      padding: 100px 20px;
+      padding: 80px 20px 40px;
       text-align: center;
-      position: relative;
       z-index: 10;
+      position: relative;
     }
 
-    h1 {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      color: #fff;
-      text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-      letter-spacing: 3px;
+    .typed-container {
+      font-size: 3rem;
+      color: var(--text);
+      margin-bottom: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: var(--glow);
+    }
+
+    .typed-cursor {
+      color: var(--blood);
+      font-size: 1.2em;
     }
 
     .subtitle {
-      font-size: 1.5rem;
-      color: var(--neon-purple);
-      margin-bottom: 10px;
-      text-shadow: 0 0 5px var(--neon-purple);
+      font-size: 1.3rem;
+      color: var(--blood);
+      margin-bottom: 8px;
+      text-shadow: var(--glow);
+      letter-spacing: 1px;
     }
 
     .tagline {
-      font-size: 1.2rem;
-      color: var(--neon-blue);
-      margin-bottom: 30px;
+      font-size: 1.1rem;
+      color: var(--text);
+      opacity: 0.7;
+      margin-bottom: 20px;
     }
 
     nav {
-      margin-top: 30px;
       display: flex;
       justify-content: center;
-      gap: 40px;
-      font-size: 1.2rem;
-      font-weight: 500;
+      gap: 30px;
+      font-size: 1rem;
     }
 
     nav a {
-      color: #999;
+      color: var(--text);
+      opacity: 0.7;
       text-decoration: none;
+      padding: 8px 0;
       border-bottom: 1px solid transparent;
-      padding: 5px 0;
       transition: all 0.3s;
     }
 
     nav a:hover {
-      color: var(--neon-pink);
-      text-shadow: 0 0 10px var(--neon-pink);
-      border-bottom: 1px solid var(--neon-pink);
+      opacity: 1;
+      border-bottom: 1px solid var(--blood);
+      color: var(--blood);
     }
 
     main {
-      padding: 80px 20px;
-      max-width: 1200px;
+      padding: 60px 20px;
+      max-width: 1100px;
       margin: 0 auto;
-      position: relative;
       z-index: 10;
+      position: relative;
     }
 
     section {
-      margin-bottom: 100px;
+      margin-bottom: 70px;
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
       transition: opacity 1s ease, transform 1s ease;
     }
 
@@ -236,222 +170,241 @@
     }
 
     h2 {
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-      color: var(--neon-blue);
-      text-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(0, 240, 255, 0.3);
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--blood);
+      box-shadow: var(--glow);
     }
 
     .skills {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
-      margin: 20px 0;
+      gap: 12px;
+      margin: 15px 0;
     }
 
     .skill {
-      background: rgba(10, 10, 10, 0.8);
-      color: var(--neon-blue);
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-size: 1.1rem;
-      border: 1px solid var(--neon-blue);
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+      background: rgba(138, 3, 3, 0.1);
+      color: var(--text);
+      padding: 8px 16px;
+      border: 1px solid var(--blood-soft);
+      border-radius: 4px;
+      font-size: 1rem;
       transition: all 0.3s;
     }
 
     .skill:hover {
-      background: rgba(0, 240, 255, 0.1);
-      transform: translateY(-3px);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      background: rgba(138, 3, 3, 0.3);
+      border-color: var(--blood);
     }
 
-    .project {
-      background: rgba(20, 20, 20, 0.8);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid var(--neon-purple);
-      box-shadow: 0 0 15px rgba(212, 0, 255, 0.2);
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .project-card {
+      background: rgba(20, 0, 0, 0.4);
+      border: 1px solid var(--blood-soft);
+      border-radius: 12px;
+      overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
-      backdrop-filter: blur(5px);
-      opacity: 0;
-      transform: translateY(30px);
     }
 
-    .project.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 20px rgba(138, 3, 3, 0.3);
+      border-color: var(--blood);
     }
 
-    .project h3 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: var(--neon-purple);
-      text-shadow: 0 0 10px rgba(212, 0, 255, 0.5);
+    .project-content {
+      padding: 25px;
     }
 
-    .project p {
-      color: #ccc;
-      margin-bottom: 25px;
-      font-size: 1.2rem;
-      line-height: 1.8;
+    .project-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: var(--text);
     }
 
-    .project a {
-      display: inline-block;
-      padding: 14px 28px;
-      background: transparent;
-      color: var(--neon-blue);
+    .project-content p {
+      color: var(--text);
+      opacity: 0.8;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .project-links a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      background: rgba(138, 3, 3, 0.2);
+      color: var(--blood);
       text-decoration: none;
-      border: 2px solid var(--neon-blue);
-      border-radius: 30px;
-      font-weight: bold;
-      margin-right: 15px;
-      margin-bottom: 10px;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      border: 1px solid var(--blood);
       transition: all 0.3s;
-      text-shadow: 0 0 5px var(--neon-blue);
     }
 
-    .project a:hover {
-      background: rgba(0, 240, 255, 0.1);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
-      transform: translateY(-3px);
+    .project-links a:hover {
+      background: var(--blood);
+      color: #fff;
     }
 
-    .project a:nth-child(2) {
-      border-color: var(--neon-purple);
-      color: var(--neon-purple);
-      text-shadow: 0 0 5px var(--neon-purple);
+    .quotes-container {
+      margin-top: 30px;
+      padding: 18px 20px;
+      border-left: 3px solid var(--blood);
+      background: rgba(138, 3, 3, 0.08);
+      font-style: italic;
+      color: #e0e0e0;
+      line-height: 1.8;
+      border-radius: 0 8px 8px 0;
     }
 
-    .project a:nth-child(2):hover {
-      background: rgba(212, 0, 255, 0.1);
-      box-shadow: 0 0 20px rgba(212, 0, 255, 0.5);
-      color: var(--neon-purple);
+    .quotes-container p {
+      margin: 0 0 8px 0;
+    }
+
+    .quotes-container #quote-author {
+      font-size: 1rem;
+      opacity: 0.8;
+      color: var(--blood);
     }
 
     .contact {
       text-align: center;
-      font-size: 1.3rem;
-      color: #ddd;
+      font-size: 1.1rem;
+      color: var(--text);
+      opacity: 0.9;
     }
 
     .contact a {
-      color: var(--neon-pink);
+      color: var(--blood);
       text-decoration: none;
-      text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+      border-bottom: 1px solid var(--blood-soft);
       transition: all 0.3s;
     }
 
     .contact a:hover {
-      text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+      opacity: 0.8;
+      border-color: transparent;
     }
 
     form {
-      max-width: 550px;
-      margin: 40px auto;
-      background: rgba(20, 20, 20, 0.9);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid var(--neon-blue);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-      backdrop-filter: blur(10px);
+      max-width: 500px;
+      margin: 30px auto 0;
+      background: rgba(30, 0, 0, 0.4);
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid var(--blood-soft);
     }
 
     input, textarea {
       width: 100%;
-      padding: 15px;
-      margin: 12px 0;
-      border: 1px solid var(--neon-blue);
-      background: rgba(10, 10, 10, 0.8);
-      color: white;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      transition: all 0.3s;
+      padding: 12px;
+      margin: 10px 0;
+      background: rgba(40, 0, 0, 0.4);
+      border: 1px solid var(--blood-soft);
+      color: var(--text);
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
     }
 
     input:focus, textarea:focus {
       outline: none;
-      border-color: var(--neon-purple);
-      box-shadow: 0 0 15px rgba(212, 0, 255, 0.5);
+      border-color: var(--blood);
+      box-shadow: 0 0 10px rgba(138, 3, 3, 0.3);
     }
 
     button {
-      background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-      color: black;
-      border: none;
-      padding: 15px 35px;
-      border-radius: 30px;
-      font-size: 1.2rem;
-      font-weight: bold;
+      background: transparent;
+      color: var(--blood);
+      border: 1px solid var(--blood);
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-size: 1rem;
       cursor: pointer;
       transition: all 0.3s;
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
     }
 
     button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.8);
+      background: rgba(138, 3, 3, 0.2);
     }
 
     footer {
       text-align: center;
-      padding: 60px 20px;
-      color: #666;
-      font-size: 1rem;
-      border-top: 1px solid rgba(100, 100, 100, 0.3);
-      background: rgba(10, 10, 10, 0.5);
-      position: relative;
-      z-index: 10;
-    }
-
-    .counter {
-      margin-top: 25px;
-      font-size: 1.2rem;
-      color: var(--neon-blue);
-      text-shadow: 0 0 10px var(--neon-blue);
+      padding: 40px 20px;
+      color: var(--text);
+      font-size: 0.9rem;
+      opacity: 0.6;
+      border-top: 1px solid var(--blood-soft);
+      margin-top: 50px;
     }
 
     @media (max-width: 768px) {
-      h1 { font-size: 2.5rem; }
-      .subtitle { font-size: 1.2rem; }
-      nav { flex-direction: column; gap: 20px; }
-      .project { padding: 30px; }
-      form { padding: 30px; }
+      .typed-container { font-size: 2.2rem; }
+      nav { flex-direction: column; gap: 15px; }
+      .project-card { margin-bottom: 20px; }
     }
   </style>
 </head>
 <body>
-  <!-- Фон частиц -->
-  <div class="cyber-bg" id="cyber-bg"></div>
-
-  <!-- Неоновая подсветка -->
-  <div class="neon-glow" id="neon-glow"></div>
-
-  <!-- Курсор -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-dot" id="cursor-dot"></div>
+  <!-- Фоны -->
+  <div class="blood-bg"></div>
+  <div class="blood-splatter"></div>
+  <div id="drops-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;"></div>
 
   <header id="home">
-    <h1 class="glitch" data-text="DANIL">DANIL</h1>
-    <p class="subtitle">WEB DEVELOPER</p>
+    <div class="typed-container" id="typed"></div>
+    <p class="subtitle">CODE IS BLOOD</p>
     <p class="tagline">18 лет • Шахты, Россия</p>
+
     <nav>
-      <a href="#about">ОБО МНЕ</a>
-      <a href="#skills">НАВЫКИ</a>
-      <a href="#projects">ПРОЕКТЫ</a>
-      <a href="#contact">КОНТАКТЫ</a>
+      <a href="#about">Обо мне</a>
+      <a href="#skills">Навыки</a>
+      <a href="#projects">Проекты</a>
+      <a href="#contact">Контакты</a>
     </nav>
   </header>
 
   <main>
     <section id="about" class="fade-in">
-      <h2 class="glitch" data-text="ОБО МНЕ">ОБО МНЕ</h2>
-      <p>Я — начинающий веб-разработчик, создающий сайты с душой и кодом. Мои проекты сочетают современный дизайн, плавную анимацию и безупречную функциональность. Я верю, что каждый пиксель должен вдохновлять.</p>
+      <h2>Обо мне</h2>
+      <p>Я — начинающий разработчик. Каждая строчка кода — капля крови. Каждый проект — рана, из которой течёт творчество. Я пишу, чтобы выжить в цифровом мире.</p>
+
+      <div class="quotes-container">
+        <p id="quote-text">Загрузка цитаты...</p>
+        <p id="quote-author">— неизвестно</p>
+      </div>
     </section>
 
     <section id="skills" class="fade-in">
-      <h2 class="glitch" data-text="НАВЫКИ">НАВЫКИ</h2>
+      <h2>Навыки</h2>
       <div class="skills">
         <div class="skill">HTML</div>
         <div class="skill">CSS</div>
@@ -460,100 +413,141 @@
     </section>
 
     <section id="projects" class="fade-in">
-      <h2 class="glitch" data-text="ПРОЕКТЫ">ПРОЕКТЫ</h2>
-      <div class="project">
-        <h3>Мотивация каждый день</h3>
-        <p>Интерактивный сайт с цитатами, анимациями и динамическим фоном. Реализованы: темная/светлая тема, копирование, частицы, заставка.</p>
-        <a href="https://killanline.github.io/motivation/" target="_blank">ЗАПУСТИТЬ</a>
-        <a href="https://github.com/killanline/motivation" target="_blank">КОД</a>
+      <h2>Проекты</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Мотивация каждый день</h3>
+            <p>Интерактивный сайт с цитатами, частицами и динамическим фоном. Авто-смена, копирование, темная тема, анимации и чистый код.</p>
+            <div class="project-links">
+              <a href="https://killanline.github.io/motivation/" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Демо
+              </a>
+              <a href="https://github.com/killanline/motivation" target="_blank">
+                <i class="fab fa-github"></i> Код
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="contact" class="fade-in">
-      <h2 class="glitch" data-text="КОНТАКТЫ">КОНТАКТЫ</h2>
-      <p class="contact">Телеграм: <a href="https://t.me/killmeagaln" target="_blank">@killmeagaln</a></p>
+      <h2>Контакты</h2>
+      <p class="contact">Telegram: <a href="https://t.me/killmeagaln" target="_blank">@killmeagaln</a></p>
       <form action="https://formspree.io/f/xrgnjvqy" method="POST">
         <input type="text" name="name" placeholder="Имя" required>
         <input type="email" name="email" placeholder="Email" required>
         <textarea name="message" placeholder="Сообщение" required></textarea>
-        <button type="submit">ОТПРАВИТЬ</button>
+        <button type="submit">Отправить</button>
       </form>
     </section>
   </main>
 
   <footer>
-    <p>© 2024 Данил Натопта | Powered by Code</p>
-    <div class="counter">
-      <img src="https://profile-counter.glitch.me/killanline/count.svg" alt="Просмотры">
-    </div>
+    <p>© 2024 Данил Натопта | The Blood Web</p>
   </footer>
 
+  <!-- Звук печати -->
+  <audio id="type-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-typewriter-single-key-1364.mp3" preload="auto"></audio>
+
   <script>
-    // Создание частиц
-    const cyberBg = document.getElementById('cyber-bg');
-    const colors = ['var(--neon-blue)', 'var(--neon-purple)', 'rgba(255, 0, 255, 0.6)'];
-    
-    for (let i = 0; i < 50; i++) {
-      const p = document.createElement('div');
-      p.classList.add('particle');
-      
-      const size = Math.random() * 4 + 1;
-      const duration = Math.random() * 20 + 10;
-      const delay = Math.random() * 10;
-      const start = Math.random() * window.innerWidth;
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.left = `${start}px`;
-      p.style.bottom = '-10px';
-      p.style.backgroundColor = color;
-      p.style.boxShadow = `0 0 10px ${color}`;
-      p.style.animationDuration = `${duration}s`;
-      p.style.animationDelay = `${delay}s`;
-      
-      cyberBg.appendChild(p);
+    // === Звук печати ===
+    const typeSound = document.getElementById('type-sound');
+
+    function playTypeSound() {
+      typeSound.currentTime = 0;
+      typeSound.play().catch(() => {});
     }
 
-    // Курсор
-    const cursor = document.getElementById('cursor');
-    const cursorDot = document.getElementById('cursor-dot');
-    const neonGlow = document.getElementById('neon-glow');
+    // === Эффект печати текста ===
+    function typeText(text, element, callback) {
+      let i = 0;
+      element.innerHTML = '';
+      const cursor = document.createElement('span');
+      cursor.className = 'typed-cursor';
+      cursor.textContent = '|';
+      element.appendChild(cursor);
 
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX - 10 + 'px';
-      cursor.style.top = e.clientY - 10 + 'px';
-      cursorDot.style.left = e.clientX - 3 + 'px';
-      cursorDot.style.top = e.clientY - 3 + 'px';
-      
-      // Неоновая подсветка
-      neonGlow.style.setProperty('--x', e.clientX + 'px');
-      neonGlow.style.setProperty('--y', e.clientY + 'px');
-    });
-
-    document.querySelectorAll('a, button, .skill').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'scale(2)';
-        cursorDot.style.opacity = '0';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'scale(1)';
-        cursorDot.style.opacity = '1';
-      });
-    });
-
-    // Анимация появления
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+      const timer = setInterval(() => {
+        if (i < text.length) {
+          playTypeSound();
+          element.insertBefore(document.createTextNode(text[i]), cursor);
+          i++;
+          if (i === 1) element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          clearInterval(timer);
+          cursor.textContent = '';
+          if (callback) callback();
         }
-      });
-    }, { threshold: 0.1 });
+      }, 130);
+    }
 
-    document.querySelectorAll('section, .project').forEach(el => {
-      observer.observe(el);
-    });
+    // === Капающие капли крови ===
+    const dropsContainer = document.getElementById('drops-container');
+    const colors = ['#8a0303', '#600000', '#a00000'];
+
+    function createDrop() {
+      const drop = document.createElement('div');
+      drop.classList.add('blood-drop');
+
+      const size = Math.random() * 8 + 6;
+      const duration = Math.random() * 8 + 6;
+      const delay = Math.random() * 5;
+      const start = Math.random() * window.innerWidth;
+
+      drop.style.width = `${size}px`;
+      drop.style.height = `${size}px`;
+      drop.style.left = `${start}px`;
+      drop.style.opacity = 0.7 + Math.random() * 0.3;
+      drop.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      drop.style.boxShadow = `0 0 10px ${colors[Math.floor(Math.random() * colors.length)]}`;
+      drop.style.animationDuration = `${duration}s`;
+      drop.style.animationDelay = `${delay}s`;
+
+      dropsContainer.appendChild(drop);
+
+      setTimeout(() => {
+        drop.remove();
+      }, duration * 1000 + delay * 1000);
+    }
+
+    setInterval(() => {
+      if (Math.random() > 0.3) createDrop();
+    }, Math.random() * 2000 + 2000);
+
+    // === Цитаты ===
+    const quotes = [
+      { text: "Код — это не просто строки. Это крик души в цифровом мире.", author: "— Неизвестный программист" },
+      { text: "Ошибки — это не провал. Это шрамы, которые делают тебя сильнее.", author: "— Данил" },
+      { text: "Пока ты пишешь, ты жив. Пока жив — пиши.", author: "— Silent Code" },
+      { text: "Тьма не страшна. Страшно перестать видеть в ней путь.", author: "— Аноним" },
+      { text: "Каждая строчка — попытка выжить. Каждый проект — шанс быть услышанным.", author: "— Разработчик" }
+    ];
+
+    const quoteText = document.getElementById('quote-text');
+    const quoteAuthor = document.getElementById('quote-author');
+
+    function showRandomQuote() {
+      const q = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteText.textContent = q.text;
+      quoteAuthor.textContent = q.author;
+    }
+
+    setTimeout(showRandomQuote, 2500);
+    setInterval(showRandomQuote, 10000);
+
+    // === Запуск анимаций при загрузке ===
+    window.onload = () => {
+      typeText("ДАНИЛ НАТОПТА", document.getElementById('typed'), () => {
+        const sections = document.querySelectorAll('section');
+        sections.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.add('visible');
+          }, 500 + i * 300);
+        });
+      });
+    };
   </script>
 </body>
 </html>
